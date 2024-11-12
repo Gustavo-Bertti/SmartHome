@@ -1,4 +1,8 @@
 package br.com.fiap.smarthome.report;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import br.com.fiap.smarthome.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -11,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.EntityModel;
 
 @Data
 @Builder
@@ -40,10 +45,29 @@ public class Report {
     @Min(0)
     private BigDecimal totalCost;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Size(max = 255)
-    private String consumptionDescription;
+    @Size(max = 500)
+    @Builder.Default
+    private String consumptionDescription = "teste";
+
+    @PrePersist
+    private void setDefaultDates() {
+        LocalDate currentDate = LocalDate.now();
+        this.startDate = currentDate.withDayOfMonth(1);
+
+        currentDate = LocalDate.now();
+        this.endDate = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
+    }
+
+    public EntityModel<Report> toEntityModel() {
+        return EntityModel.of(
+                this,
+                linkTo(methodOn(ReportController.class).readItem(reportId)).withSelfRel(),
+                linkTo(methodOn(ReportController.class).delete(reportId)).withRel("delete"),
+                linkTo(methodOn(ReportController.class).readAll(null)).withRel("contents")
+        );
+    }
 }

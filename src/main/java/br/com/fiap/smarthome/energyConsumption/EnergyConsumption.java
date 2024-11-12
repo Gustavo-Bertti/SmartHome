@@ -2,6 +2,7 @@ package br.com.fiap.smarthome.energyConsumption;
 
 import br.com.fiap.smarthome.report.Report;
 import br.com.fiap.smarthome.user.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,10 +29,8 @@ public class EnergyConsumption {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "report_id", nullable = false)
-    private Report report;
-
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @Builder.Default
     private LocalDateTime recordedAt = LocalDateTime.now();
 
     @Min(0)
