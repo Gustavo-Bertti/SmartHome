@@ -4,6 +4,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import java.util.List;
 
+import br.com.fiap.smarthome.energyConsumption.dto.EnergyConsumptionRequest;
+import br.com.fiap.smarthome.energyConsumption.dto.EnergyConsumptionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("energyConsumption")
@@ -26,8 +29,17 @@ public class EnergyConsumptionController {
     @PostMapping
     @ResponseStatus(CREATED)
     @CacheEvict(allEntries = true)
-    public EnergyConsumption create(@RequestBody @Valid EnergyConsumption energyConsumption) {
-        return service.create(energyConsumption);
+    public ResponseEntity<EnergyConsumptionResponse> create(@RequestBody @Valid EnergyConsumptionRequest energyConsumptionRequest, UriComponentsBuilder uriBuilder) {
+        EnergyConsumption energyConsumption = service.create(energyConsumptionRequest.toModel());
+
+        var uri = uriBuilder
+                .path("/energyConsumption/{id}")
+                .buildAndExpand(energyConsumption.getConsumptionId())
+                .toUri();
+
+        return ResponseEntity
+                .created(uri)
+                .body(EnergyConsumptionResponse.from(energyConsumption));
     }
 
     @GetMapping
@@ -47,4 +59,10 @@ public class EnergyConsumptionController {
     public List<EnergyConsumption> getEnergyConsumptionsByUserId(@PathVariable Long userId) {
         return service.getEnergyConsumptionsByUserId(userId);
     }
+
+    @GetMapping("lastEnergyConsumption/{userId}")
+    public EnergyConsumption getLastEnergyConsumptionByUserId(@PathVariable Long userId) {
+        return service.getLastEnergyConsumptionByUserId(userId);
+    }
+
 }

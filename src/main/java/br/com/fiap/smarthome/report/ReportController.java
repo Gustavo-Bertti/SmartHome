@@ -40,11 +40,10 @@ public class ReportController {
     @ResponseStatus(CREATED)
     @CacheEvict(allEntries = true)
     public ResponseEntity<ReportResponse> create(@RequestBody @Valid ReportRequest reportRequest, UriComponentsBuilder uriBuilder) {
-        System.out.println("PINTAO " + reportRequest);
         Report report = service.create(reportRequest.toModel());
 
         var uri = uriBuilder
-                .path("/user/{id}")
+                .path("/report/{id}")
                 .buildAndExpand(report.getReportId())
                 .toUri();
 

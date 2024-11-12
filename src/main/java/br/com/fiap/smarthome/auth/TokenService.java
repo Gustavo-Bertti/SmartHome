@@ -27,7 +27,7 @@ public class TokenService {
         String token = JWT.create()
                 .withSubject(email)
                 .withExpiresAt(expirationAt)
-                .withIssuer("Marketplace")
+                .withIssuer("SmartHome")
                 .sign(ALGORITHM);
 
         return new Token(token, email);

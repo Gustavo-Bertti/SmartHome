@@ -32,31 +32,11 @@ public class UserSettingsController {
         return service.create(userSettings);
     }
 
-    @GetMapping
-    @Cacheable
-    public List<UserSettings> readAll() {
-        return service.readAll();
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<UserSettings> readItem(@PathVariable Long id) {
-        return service.readItem(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PutMapping("{id}")
     @ResponseStatus(OK)
     @CacheEvict(allEntries = true)
     public UserSettings update(@PathVariable Long id, @RequestBody UserSettings userSettings) {
         return service.update(id, userSettings);
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseStatus(NO_CONTENT)
-    @CacheEvict(allEntries = true)
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
     }
 
     @GetMapping("settings/{userId}")

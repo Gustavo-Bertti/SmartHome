@@ -17,7 +17,6 @@ public class ReportService {
     private ReportRepository repository;
 
     public Report create(Report report) {
-        System.out.println("SERVICE " + report);
         return repository.save(report);
     }
 

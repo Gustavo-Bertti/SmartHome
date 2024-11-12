@@ -7,4 +7,6 @@ import java.util.List;
 @Repository
 public interface EnergyConsumptionRepository extends JpaRepository<EnergyConsumption, Long> {
     List<EnergyConsumption> getEnergyConsumptionsByUser_UserId(Long userId);
+
+    EnergyConsumption findTopByUser_UserIdOrderByRecordedAtDesc(Long userId);
 }
