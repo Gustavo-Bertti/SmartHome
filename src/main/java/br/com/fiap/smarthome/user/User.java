@@ -1,10 +1,12 @@
 package br.com.fiap.smarthome.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +36,7 @@ public class User {
     @Size(min = 8, max = 100)
     private String password;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @Builder.Default
+    private LocalDate createdAt = LocalDate.now();
 }

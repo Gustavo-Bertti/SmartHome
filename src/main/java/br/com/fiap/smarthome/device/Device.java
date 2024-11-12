@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEVICES_SEQ")
-    @SequenceGenerator(name = "DEVICES_SEQ", sequenceName = "DEVICES_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEVICE_SEQ")
+    @SequenceGenerator(name = "DEVICE_SEQ", sequenceName = "DEVICE_SEQ", allocationSize = 1)
     private Long deviceId;
 
     @ManyToOne
