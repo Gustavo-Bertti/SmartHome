@@ -1,4 +1,4 @@
-package br.com.fiap.smarthome.device;
+package br.com.fiap.smarthome.userSettings;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -17,29 +17,29 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("device")
-@CacheConfig(cacheNames = "devices")
-@Tag(name = "Devices", description = "Device-related endpoint")
-public class DeviceController {
+@RequestMapping("userSettings")
+@CacheConfig(cacheNames = "userSettings")
+@Tag(name = "UserSettings", description = "UserSettings-related endpoint")
+public class UserSettingsController {
 
     @Autowired
-    private DeviceService service;
+    private UserSettingsService service;
 
     @PostMapping
     @ResponseStatus(CREATED)
     @CacheEvict(allEntries = true)
-    public Device create(@RequestBody @Valid Device device) {
-        return service.create(device);
+    public UserSettings create(@RequestBody @Valid UserSettings userSettings) {
+        return service.create(userSettings);
     }
 
     @GetMapping
     @Cacheable
-    public List<Device> readAll() {
+    public List<UserSettings> readAll() {
         return service.readAll();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Device> readItem(@PathVariable Long id) {
+    public ResponseEntity<UserSettings> readItem(@PathVariable Long id) {
         return service.readItem(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -48,8 +48,8 @@ public class DeviceController {
     @PutMapping("{id}")
     @ResponseStatus(OK)
     @CacheEvict(allEntries = true)
-    public Device update(@PathVariable Long id, @RequestBody Device device) {
-        return service.update(id, device);
+    public UserSettings update(@PathVariable Long id, @RequestBody UserSettings userSettings) {
+        return service.update(id, userSettings);
     }
 
     @DeleteMapping("{id}")
@@ -59,8 +59,8 @@ public class DeviceController {
         service.delete(id);
     }
 
-    @GetMapping("userDevice/{userId}")
-    public List<Device> getDevicesByUserId(@PathVariable Long userId) {
-        return service.getDevicesByUserId(userId);
+    @GetMapping("settings/{userId}")
+    public List<UserSettings> getUserSettingsByUserId(@PathVariable Long userId) {
+        return service.getUserSettingsByUserId(userId);
     }
 }

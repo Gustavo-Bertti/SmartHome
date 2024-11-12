@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Entity
 @Builder
@@ -23,7 +25,7 @@ public class UserSettings {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private Double energyLimit;
+    private BigDecimal energyLimit;
 
     private Boolean emailAlert;
 }
