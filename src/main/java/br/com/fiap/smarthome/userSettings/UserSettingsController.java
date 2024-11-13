@@ -40,7 +40,7 @@ public class UserSettingsController {
     }
 
     @GetMapping("settings/{userId}")
-    public List<UserSettings> getUserSettingsByUserId(@PathVariable Long userId) {
+    public UserSettings getUserSettingsByUserId(@PathVariable Long userId) {
         return service.getUserSettingsByUserId(userId);
     }
 }

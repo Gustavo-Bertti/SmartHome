@@ -15,6 +15,11 @@ public class RabbitMqConfig {
     }
 
     @Bean
+    public Queue consumptionQueue(){
+        return new Queue("consumption-queue", true);
+    }
+
+    @Bean
     public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }

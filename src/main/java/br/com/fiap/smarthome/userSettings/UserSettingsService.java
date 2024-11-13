@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-import java.util.List;
 
 @Service
 public class UserSettingsService {
@@ -23,7 +22,7 @@ public class UserSettingsService {
         return repository.save(userSettings);
     }
 
-    public List<UserSettings> getUserSettingsByUserId(Long userId) {
+    public UserSettings getUserSettingsByUserId(Long userId) {
         return repository.getUserSettingsByUser_UserId(userId);
     }
 

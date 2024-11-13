@@ -25,7 +25,7 @@ public class UserSettings {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private BigDecimal energyLimit;
+    private BigDecimal costLimit;
 
     private Boolean emailAlert;
 }
