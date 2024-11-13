@@ -54,7 +54,7 @@ public class ReportController {
 
     @GetMapping
     @Cacheable
-    public PagedModel<EntityModel<Report>> readAll(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+    public PagedModel<EntityModel<Report>> readAll(@PageableDefault(size = 50, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Report> page = service.readAll(pageable);
         return pageAssembler.toModel(page, Report::toEntityModel);
     }

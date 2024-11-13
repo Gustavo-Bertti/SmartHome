@@ -53,8 +53,7 @@ public class Report {
     @Builder.Default
     private String consumptionDescription = "teste";
 
-    @PrePersist
-    private void setDefaultDates() {
+    public void setDefaultDates() {
         LocalDate currentDate = LocalDate.now();
         this.startDate = currentDate.withDayOfMonth(1);
 

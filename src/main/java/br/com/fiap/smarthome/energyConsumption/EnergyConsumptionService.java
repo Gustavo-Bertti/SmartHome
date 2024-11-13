@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,4 +63,9 @@ public class EnergyConsumptionService {
     public EnergyConsumption getLastEnergyConsumptionByUserId(Long userId) {
         return repository.findTopByUser_UserIdOrderByRecordedAtDesc(userId);
     }
+
+    public List<EnergyConsumption> findByUserIdAndRecordedAtBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findByUserIdAndRecordedAtBetween(userId, startDate, endDate);
+    }
+
 }
