@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Repository
 public interface EnergyConsumptionRepository extends JpaRepository<EnergyConsumption, Long> {
+    @Query("SELECT e FROM ENERGY_CONSUMPTION e WHERE e.user.userId = :userId ORDER BY e.recordedAt DESC")
     List<EnergyConsumption> getEnergyConsumptionsByUser_UserId(Long userId);
 
     EnergyConsumption findTopByUser_UserIdOrderByRecordedAtDesc(Long userId);
@@ -18,4 +19,11 @@ public interface EnergyConsumptionRepository extends JpaRepository<EnergyConsump
             @Param("userId") Long userId,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate);
+
+    @Query(value = "SELECT * FROM ENERGY_CONSUMPTION A " +
+            "WHERE A.RECORDED_AT >= TRUNC(TO_DATE(SUBSTR(:date, 1, 2) || '-' || SUBSTR(:date, 4), 'MM/YYYY')) " +
+            "AND A.RECORDED_AT < TRUNC(TO_DATE(SUBSTR(:date, 1, 2) || '-' || SUBSTR(:date, 4), 'MM/YYYY') + INTERVAL '1' MONTH) " +
+            "AND A.USER_ID = :userId ORDER BY A.RECORDED_AT DESC",
+            nativeQuery = true)
+    List<EnergyConsumption> getEnergyConsumptionByMonthAndUserId(String date, Long userId);
 }

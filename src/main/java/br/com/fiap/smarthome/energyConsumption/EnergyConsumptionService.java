@@ -6,6 +6,7 @@ import br.com.fiap.smarthome.userSettings.UserSettingsService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -66,6 +67,10 @@ public class EnergyConsumptionService {
 
     public List<EnergyConsumption> findByUserIdAndRecordedAtBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
         return repository.findByUserIdAndRecordedAtBetween(userId, startDate, endDate);
+    }
+
+    public List<EnergyConsumption> getEnergyConsumptionByMonth(@RequestParam String date, @RequestParam Long userId) {
+        return repository.getEnergyConsumptionByMonthAndUserId(date, userId);
     }
 
 }

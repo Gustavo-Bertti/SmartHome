@@ -67,4 +67,9 @@ public class EnergyConsumptionController {
         return service.getLastEnergyConsumptionByUserId(userId);
     }
 
+    @GetMapping("consumptionByMonth")
+    public List<EnergyConsumption> getEnergyConsumptionByMonth(@RequestParam String date, @RequestParam Long userId) {
+        return service.getEnergyConsumptionByMonth(date, userId);
+    }
+
 }

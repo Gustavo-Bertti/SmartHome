@@ -6,6 +6,8 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import br.com.fiap.smarthome.report.dto.ReportRequest;
 import br.com.fiap.smarthome.report.dto.ReportResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
