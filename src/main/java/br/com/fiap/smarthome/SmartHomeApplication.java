@@ -19,7 +19,7 @@ public class SmartHomeApplication {
 	@RequestMapping
 	@ResponseBody
 	public String home() {
-		return "SmartHome";
+		return "SmartHome 14/11";
 	}
 
 }
