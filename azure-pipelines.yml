@@ -27,12 +27,10 @@ steps:
     tags: |
       $(Build.BuildId)
       latest
-      
+    
 - task: DockerCompose@0
-  displayName: 'Run Docker Compose up'
+  displayName: 'Build and push Docker Compose services'
   inputs:
+    containerregistry: 'smarthomegs' 
     dockerComposeFile: '**/docker-compose.yml'
-    action: 'Run services'
-
-- script: echo "Deployment complete"
-  displayName: 'Post-deployment message'      
+    action: 'Build services'  
