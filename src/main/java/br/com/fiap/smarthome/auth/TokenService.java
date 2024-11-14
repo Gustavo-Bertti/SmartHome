@@ -21,7 +21,7 @@ public class TokenService {
         this.userRepository = userRepository;
     }
 
-    public Token generateToken(String email){
+    public Token generateToken(Long userId, String email){
 
         var expirationAt = LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.ofHours(-3));
         String token = JWT.create()
@@ -30,7 +30,7 @@ public class TokenService {
                 .withIssuer("SmartHome")
                 .sign(ALGORITHM);
 
-        return new Token(token, email);
+        return new Token(userId, token, email);
     }
 
     public User getUserFromToken(String token) {
