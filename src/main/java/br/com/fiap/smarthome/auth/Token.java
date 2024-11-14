@@ -1,4 +1,6 @@
 package br.com.fiap.smarthome.auth;
 
-public record Token(Long userId, String token, String email) {
+import br.com.fiap.smarthome.user.User;
+
+public record Token(String token, User user) {
 }

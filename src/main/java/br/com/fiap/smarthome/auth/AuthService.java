@@ -24,7 +24,7 @@ public class AuthService {
         if (!passwordEncoder.matches(credentials.password(), user.getPassword()))
             throw new RuntimeException("Access denied");
 
-        return tokenService.generateToken(user.getUserId(), credentials.email());
+        return tokenService.generateToken(user);
     }
 
 }
