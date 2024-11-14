@@ -4,10 +4,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import java.util.List;
 
-import br.com.fiap.smarthome.email.dto.EmailConsumptionDto;
 import br.com.fiap.smarthome.energyConsumption.dto.EnergyConsumptionRequest;
 import br.com.fiap.smarthome.energyConsumption.dto.EnergyConsumptionResponse;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
