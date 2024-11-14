@@ -1,31 +1,21 @@
-# Usar a imagem base do OpenJDK
-FROM openjdk:23-jdk-slim
-
-# Definir o diretório de trabalho
+# Imagem base para compilação
+FROM maven:3.8.5-openjdk-17-slim AS build
 WORKDIR /app
 
-# Copiar o arquivo pom.xml
+# Copia o arquivo pom.xml e baixa as dependências
 COPY pom.xml ./
-
-# Instalar o Maven
-RUN apt-get update && \
-    apt-get install -y wget && \
-    wget https://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz && \
-    tar -xvzf apache-maven-3.8.5-bin.tar.gz -C /opt && \
-    ln -s /opt/apache-maven-3.8.5 /opt/maven && \
-    ln -s /opt/maven/bin/mvn /usr/bin/mvn
-
-# Baixar as dependências para o modo offline
 RUN mvn dependency:go-offline -B
 
-# Copiar o código fonte
+# Copia o código da aplicação para o container e compila o projeto
 COPY src ./src
+RUN mvn package -DskipTests
 
-# Compilar o projeto
-RUN mvn clean install
+# Imagem final para executar a aplicação
+FROM openjdk:17-jdk-slim AS runtime
+WORKDIR /app
 
-# Expor a porta (se necessário)
-EXPOSE 8080
+# Copia o arquivo JAR gerado pelo Maven no estágio de build
+COPY --from=build /app/target/*.jar app.jar
 
-# Definir o comando para rodar a aplicação
-CMD ["mvn", "spring-boot:run"]
+# Comando de inicialização da aplicação
+ENTRYPOINT ["java", "-jar", "app.jar"]
