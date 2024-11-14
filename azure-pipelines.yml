@@ -31,6 +31,7 @@ steps:
 - task: DockerCompose@0
   displayName: 'Build and push Docker Compose services'
   inputs:
-    containerregistry: 'smarthomegs' 
+    containerregistry: 'smarthomegs'
     dockerComposeFile: '**/docker-compose.yml'
-    action: 'Build services'  
+    action: 'Build services'
+    projectName: 'smarthomegs'
