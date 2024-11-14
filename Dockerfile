@@ -5,7 +5,7 @@ WORKDIR /app
 # Instalar o Maven (se necessário)
 RUN apt-get update && \
     apt-get install -y wget && \
-    wget https://downloads.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz && \
+    wget https://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz && \
     tar -xvzf apache-maven-3.8.5-bin.tar.gz -C /opt && \
     ln -s /opt/apache-maven-3.8.5 /opt/maven && \
     ln -s /opt/maven/bin/mvn /usr/bin/mvn
