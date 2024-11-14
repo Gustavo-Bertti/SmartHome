@@ -2,6 +2,8 @@
 FROM openjdk:23-jdk-slim AS build
 WORKDIR /app
 
+ENV PATH="/opt/maven/bin:${PATH}"
+
 # Copiar pom.xml e dependências
 COPY pom.xml ./
 RUN mvn dependency:go-offline -B
