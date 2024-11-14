@@ -33,7 +33,6 @@ public class EmailService {
             mailSender.send(simpleMailMessage);
     }
 
-    @RabbitListener(queues = "email-queue")
     public void sendEmail(EmailDto emailDto){
 
         String subject = "Account register";
@@ -47,7 +46,6 @@ public class EmailService {
         mailSender.send(mail);
     }
 
-    @RabbitListener(queues = "consumption-queue")
     public void sendConsumptionNotify(EmailConsumptionDto emailConsumptionDto){
         boolean exceedLimitCost = false;
         StringBuilder body = new StringBuilder();

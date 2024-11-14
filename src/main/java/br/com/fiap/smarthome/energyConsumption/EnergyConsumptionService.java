@@ -1,5 +1,6 @@
 package br.com.fiap.smarthome.energyConsumption;
 
+import br.com.fiap.smarthome.email.EmailService;
 import br.com.fiap.smarthome.email.dto.EmailConsumptionDto;
 import br.com.fiap.smarthome.userSettings.UserSettings;
 import br.com.fiap.smarthome.userSettings.UserSettingsService;
@@ -23,11 +24,9 @@ public class EnergyConsumptionService {
     @Autowired
     private UserSettingsService userSettingsService;
 
-    private final RabbitTemplate rabbitTemplate;
+    @Autowired
+    private EmailService emailService;
 
-    public EnergyConsumptionService(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-    }
 
     public EnergyConsumption create(EnergyConsumption energyConsumption) {
         energyConsumption.setCost(energyConsumption.getTotalEnergy().multiply(kwhValue));
@@ -42,7 +41,8 @@ public class EnergyConsumptionService {
                         energyConsumption.getCost(),
                         userSettings.getCostLimit()
                 );
-                rabbitTemplate.convertAndSend("consumption-queue", emailConsumptionDto);
+
+                emailService.sendConsumptionNotify(emailConsumptionDto);
             }
         }
 

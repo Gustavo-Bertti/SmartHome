@@ -7,14 +7,13 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import java.util.List;
 
 import br.com.fiap.smarthome.auth.Credentials;
+import br.com.fiap.smarthome.email.EmailService;
 import br.com.fiap.smarthome.email.dto.EmailDto;
 import br.com.fiap.smarthome.user.dto.UserRequest;
 import br.com.fiap.smarthome.user.dto.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,11 +38,11 @@ import jakarta.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final RabbitTemplate rabbitTemplate;
+    @Autowired
+    private EmailService emailService;
 
-    public UserController(UserService userService, RabbitTemplate rabbitTemplate) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.rabbitTemplate = rabbitTemplate;
     }
 
     @PostMapping
@@ -51,7 +50,8 @@ public class UserController {
     public ResponseEntity<UserResponse> create(@RequestBody @Valid UserRequest userRequest, UriComponentsBuilder uriBuilder) {
         User user = userService.create(userRequest.toModel());
         EmailDto emailDto = new EmailDto(user.getEmail(), user.getName());
-        rabbitTemplate.convertAndSend("email-queue", emailDto);
+
+        emailService.sendEmail(emailDto);
 
         var uri = uriBuilder
                 .path("/user/{id}")
