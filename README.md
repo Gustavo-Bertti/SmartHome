@@ -20,11 +20,16 @@
     nuvem: http://acrwebappsmarthome.azurewebsites.net/docs
 
 ### Como executar os testes
-    Fazer as chamadas da API para os endpoints que estão listados na documentação http://acrwebappsmarthome.azurewebsites.net/docs
-    seguir o formato dos campos e enviar as requisições
-    Para cadastro do user, necessário informal email válido
-    Para cadastro do device, no campo usagePeriod só são aceitos "MANHÃ", "TARDE", "NOITE", "DIA TODO"
-    Para teste do endpoint report/userReport informar o sort para o pageable como createdAt
-    Para teste do endpoint energyConsumption/consumptionByMonth informar a data no formato MM/yyyy 
+    Local:
+        Fazer login para gerar o token JWT e colocar em cada requisição que for fazer. Endpoints liberados post (user, user/newPwd, login)
+        Após login seguir mesmo passos abaixo porém utilizando localhost na url
+        Estrutura dos JSON todas presentes na documentação da api
+    Nuvem:
+        Fazer as chamadas da API para os endpoints que estão listados na documentação http://acrwebappsmarthome.azurewebsites.net/docs
+        seguir o formato dos campos e enviar as requisições
+        Para cadastro do user, necessário informal email válido
+        Para cadastro do device, no campo usagePeriod só são aceitos "MANHÃ", "TARDE", "NOITE", "DIA TODO"
+        Para teste do endpoint report/userReport informar o sort para o pageable como createdAt
+        Para teste do endpoint energyConsumption/consumptionByMonth informar a data no formato MM/yyyy 
     
 
