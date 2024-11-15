@@ -21,9 +21,10 @@ public interface EnergyConsumptionRepository extends JpaRepository<EnergyConsump
             @Param("endDate") LocalDateTime endDate);
 
     @Query(value = "SELECT * FROM ENERGY_CONSUMPTION A " +
-            "WHERE A.RECORDED_AT >= TRUNC(TO_DATE(SUBSTR(:date, 1, 2) || '-' || SUBSTR(:date, 4), 'MM/YYYY')) " +
-            "AND A.RECORDED_AT < TRUNC(TO_DATE(SUBSTR(:date, 1, 2) || '-' || SUBSTR(:date, 4), 'MM/YYYY') + INTERVAL '1' MONTH) " +
+            "WHERE A.RECORDED_AT >= DATEFROMPARTS(CAST(SUBSTRING(:date, 4, 4) AS INT), CAST(SUBSTRING(:date, 1, 2) AS INT), 1) " +
+            "AND A.RECORDED_AT < DATEADD(MONTH, 1, DATEFROMPARTS(CAST(SUBSTRING(:date, 4, 4) AS INT), CAST(SUBSTRING(:date, 1, 2) AS INT), 1)) " +
             "AND A.USER_ID = :userId ORDER BY A.RECORDED_AT DESC",
             nativeQuery = true)
     List<EnergyConsumption> getEnergyConsumptionByMonthAndUserId(String date, Long userId);
+
 }
