@@ -39,4 +39,10 @@ public class User {
     @JsonFormat(pattern="dd-MM-yyyy")
     @Builder.Default
     private LocalDate createdAt = LocalDate.now();
+
+    public User(Long userId, String name, String email) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+    }
 }

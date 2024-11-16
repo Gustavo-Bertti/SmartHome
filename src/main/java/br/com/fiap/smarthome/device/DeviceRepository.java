@@ -1,10 +1,26 @@
 package br.com.fiap.smarthome.device;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 @Repository
-public interface DeviceRepository extends JpaRepository<Device, Long> {
-    List<Device> getDevicesByUser_UserId(Long userId);
+public class DeviceRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public DeviceRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public Device saveDevice(Device device) {
+        String sql = "{call SAVE_DEVICE(?, ?, ?, ?)}";
+
+        jdbcTemplate.update(sql,
+                device.getUser().getUserId(),
+                device.getDeviceName(),
+                device.getDescription(),
+                device.getUsagePeriod()
+        );
+        return device;
+    }
 }

@@ -22,6 +22,9 @@ public class ReportService {
     private ReportRepository repository;
 
     @Autowired
+    private ReportRepositoryProc repositoryProc;
+
+    @Autowired
     private EnergyConsumptionService energyConsumptionService;
 
     @Autowired
@@ -29,7 +32,7 @@ public class ReportService {
 
     public Report create(Report report) {
         report.setDefaultDates();
-        return repository.save(getReportData(report));
+        return repositoryProc.saveReport(getReportData(report));
     }
 
     public Page<Report> readAll(Pageable pageable) {

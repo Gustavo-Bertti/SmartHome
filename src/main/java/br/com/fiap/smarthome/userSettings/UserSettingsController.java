@@ -32,15 +32,15 @@ public class UserSettingsController {
         return service.create(userSettings);
     }
 
-    @PutMapping("{id}")
-    @ResponseStatus(OK)
-    @CacheEvict(allEntries = true)
-    public UserSettings update(@PathVariable Long id, @RequestBody UserSettings userSettings) {
-        return service.update(id, userSettings);
-    }
-
-    @GetMapping("settings/{userId}")
-    public UserSettings getUserSettingsByUserId(@PathVariable Long userId) {
-        return service.getUserSettingsByUserId(userId);
-    }
+//    @PutMapping("{id}")
+//    @ResponseStatus(OK)
+//    @CacheEvict(allEntries = true)
+//    public UserSettings update(@PathVariable Long id, @RequestBody UserSettings userSettings) {
+//        return service.update(id, userSettings);
+//    }
+//
+//    @GetMapping("settings/{userId}")
+//    public UserSettings getUserSettingsByUserId(@PathVariable Long userId) {
+//        return service.getUserSettingsByUserId(userId);
+//    }
 }
