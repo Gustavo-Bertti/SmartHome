@@ -32,6 +32,7 @@ public class ReportService {
 
     public Report create(Report report) {
         report.setDefaultDates();
+        System.out.println("AQUIIIII " + getReportData(report));
         return repositoryProc.saveReport(getReportData(report));
     }
 

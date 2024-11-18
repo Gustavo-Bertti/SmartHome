@@ -8,15 +8,12 @@ import br.com.fiap.smarthome.user.dto.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -25,20 +22,28 @@ import jakarta.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository repository ;
     private final RabbitTemplate rabbitTemplate;
 
-    public UserController(UserService userService, RabbitTemplate rabbitTemplate) {
+    public UserController(UserService userService, RabbitTemplate rabbitTemplate, UserRepository repository) {
         this.userService = userService;
         this.rabbitTemplate = rabbitTemplate;
+        this.repository = repository;
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public User create(@RequestBody @Valid UserRequest userRequest, UriComponentsBuilder uriBuilder) {
+    public UserResponse create(@RequestBody @Valid UserRequest userRequest) {
         User user = userService.create(userRequest.toModel());
         EmailDto emailDto = new EmailDto(userRequest.email(), userRequest.name());
         rabbitTemplate.convertAndSend("email-queue", emailDto);
 
-        return user;
+        return UserResponse.from(user);
     }
+
+    @GetMapping
+    public List<User> getAll() {
+        return repository.findAll();
+    }
+
 }

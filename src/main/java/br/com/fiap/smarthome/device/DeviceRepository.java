@@ -13,7 +13,7 @@ public class DeviceRepository {
     }
 
     public Device saveDevice(Device device) {
-        String sql = "{call SAVE_DEVICE(?, ?, ?, ?)}";
+        String sql = "{call PKG_DEVICE.INSERT_DEVICE(?, ?, ?, ?)}";
 
         jdbcTemplate.update(sql,
                 device.getUser().getUserId(),

@@ -13,13 +13,13 @@ public class EnergyConsumptionRepositoryProc {
     }
 
     public EnergyConsumption saveEnergyConsumption(EnergyConsumption energyConsumption) {
-        String sql = "{call SAVE_ENERGY_CONSUMPTION(?, ?, ?, ?)}";
+        String sql = "{call ENERGY_CONSUMPTION_PKG.INSERT_ENERGY_CONSUMPTION(?, ?, ?, ?)}";
 
         jdbcTemplate.update(sql,
                 energyConsumption.getUser().getUserId(),
+                energyConsumption.getRecordedAt(),
                 energyConsumption.getTotalEnergy(),
-                energyConsumption.getCost(),
-                energyConsumption.getRecordedAt()
+                energyConsumption.getCost()
         );
         return energyConsumption;
     }

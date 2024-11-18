@@ -14,7 +14,7 @@ public class UserSettingsRepository {
     }
 
     public UserSettings saveUserSettings(UserSettings userSettings) {
-        String sql = "{call SAVE_USER_SETTINGS(?, ?, ?)}";
+        String sql = "{call PKG_USER_SETTINGS.insert_user_settings(?, ?, ?)}";
 
         jdbcTemplate.update(sql,
                 userSettings.getUser().getUserId(),

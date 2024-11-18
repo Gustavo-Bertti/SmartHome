@@ -13,15 +13,13 @@ public class ReportRepositoryProc {
     }
 
     public Report saveReport(Report report) {
-        String sql = "{call SAVE_REPORT(?, ?, ?, ?, ?, ?, ?)}";
-
+        String sql = "{call PKG_REPORT.INSERT_REPORT(?, ?, ?, ?, ?, ?)}";
         jdbcTemplate.update(sql,
                 report.getUser().getUserId(),
                 report.getStartDate(),
                 report.getEndDate(),
                 report.getTotalEnergy(),
                 report.getTotalCost(),
-                report.getCreatedAt(),
                 report.getConsumptionDescription()
         );
         return report;
