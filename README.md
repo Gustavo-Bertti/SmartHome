@@ -28,7 +28,7 @@
         Fazer as chamadas da API para os endpoints que estão listados na documentação http://acrwebappsmarthome.azurewebsites.net/docs
         seguir o formato dos campos e enviar as requisições
         Para cadastro do user, necessário informal email válido
-        Para cadastro do device, no campo usagePeriod só são aceitos "MANHÃ", "TARDE", "NOITE", "DIA TODO"
+        Para cadastro do device, no campo usagePeriod só são aceitos "MANHÃ", "TARDE", "NOITE", "DIA TODO", "MORNING", "AFTERNOON", "NIGHT", "ALL DAY"
         Para teste do endpoint report/userReport informar o sort para o pageable como createdAt
         Para teste do endpoint energyConsumption/consumptionByMonth informar a data no formato MM/yyyy 
     
