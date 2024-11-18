@@ -28,8 +28,12 @@ public class ReportService {
     private ReportAIService reportAIService;
 
     public Report create(Report report) {
-        report.setDefaultDates();
-        return repository.save(getReportData(report));
+        Optional<Report> localReport = repository.findCurrentMonthReportByUser_UserId(report.getUser().getUserId());
+        if (localReport.isEmpty()) {
+            report.setDefaultDates();
+            return repository.save(getReportData(report));
+        }
+        return repository.save(getReportData(localReport.get()));
     }
 
     public Page<Report> readAll(Pageable pageable) {
