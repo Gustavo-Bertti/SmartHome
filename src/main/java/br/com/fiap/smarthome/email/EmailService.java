@@ -26,7 +26,7 @@ public class EmailService {
 
     public void sendEmailText(String to, String subject, String body){
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setFrom("rafaeldsc6969@gmail.com");
+            simpleMailMessage.setFrom(from);
             simpleMailMessage.setTo(to);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
@@ -39,6 +39,7 @@ public class EmailService {
         String body = "Account successfully created, Welcome to SmartHome " + emailDto.getName() + "!\nNow you can start registering your devices" ;
 
         SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom(from);
         mail.setTo(emailDto.getTo());
         mail.setSubject(subject);
         mail.setText(body);
@@ -72,6 +73,7 @@ public class EmailService {
         }
 
         SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom(from);
         mail.setTo(emailConsumptionDto.getTo());
         mail.setSubject(subject);
         mail.setText(String.valueOf(body));
