@@ -20,8 +20,8 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'smarthomegs'
-    repository: 'smarthomegs'
+    containerRegistry: 'smarthomeg'
+    repository: 'smarthomeg'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: |
