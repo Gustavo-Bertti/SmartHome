@@ -5,13 +5,13 @@
     Rafael da Silva Camargo RM551127  
     
 ### Rodar aplicação
-    1 - Abrir o link http://acrwebappsmarthome.azurewebsites.net/
+    1 - Abrir o link https://acrwebappsmarthomeg.azurewebsites.net/
             
 ## Documentação da API com endpoints
-    http://acrwebappsmarthome.azurewebsites.net/docs
+    https://acrwebappsmarthomeg.azurewebsites.net/docs
 
 ### Como executar os testes
-    Fazer as chamadas da API para os endpoints que estão listados na documentação http://acrwebappsmarthome.azurewebsites.net/docs
+    Fazer as chamadas da API para os endpoints que estão listados na documentação https://acrwebappsmarthomeg.azurewebsites.net/docs
     seguir o formato dos campos e enviar as requisições
     Para cadastro do user, necessário informal email válido
     Para cadastro do device, no campo usagePeriod só são aceitos "MANHÃ", "TARDE", "NOITE", "DIA TODO"
